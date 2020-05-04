@@ -1,0 +1,9 @@
+body{
+    margin: 0;
+    padding:0;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Cabin', sans-serif;
+    font-size: 200%;
+}

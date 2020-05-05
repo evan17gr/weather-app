@@ -1,9 +1,34 @@
 body{
     margin: 0;
     padding:0;
-    background-color: black;
     color: white;
-    text-align: center;
     font-family: 'Cabin', sans-serif;
     font-size: 200%;
+}
+
+#container{
+    width:100%;
+    height: 100vh;
+    display: flex;                  
+    flex-direction: row;            
+    flex-wrap: nowrap;              
+    justify-content: space-between;
+}
+
+#california{
+    float:left;
+    width:100%;
+    background-image: url(https://images.fineartamerica.com/images-medium-large-5/golden-gate-bridge-vertical-view-tanya-harrison.jpg);
+    
+}
+
+#usersLocation{
+    margin:0 auto;
+    width:100%;
+}
+
+#athens{
+    float:right;
+    width:100%;
+    background-image: url(https://images.fineartamerica.com/images-medium-large-5/3-athens-attica-greece-porch-panoramic-images.jpg);
 }

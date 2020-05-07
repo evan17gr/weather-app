@@ -2,8 +2,7 @@ body{
     margin: 0;
     padding:0;
     color: white;
-    font-family: 'Cabin', sans-serif;
-    font-size: 200%;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 #container{
@@ -17,9 +16,7 @@ body{
 
 #california{
     float:left;
-    width:100%;
-    background-image: url(https://images.fineartamerica.com/images-medium-large-5/golden-gate-bridge-vertical-view-tanya-harrison.jpg);
-    
+    width:100%; 
 }
 
 #usersLocation{
@@ -30,5 +27,83 @@ body{
 #athens{
     float:right;
     width:100%;
-    background-image: url(https://images.fineartamerica.com/images-medium-large-5/3-athens-attica-greece-porch-panoramic-images.jpg);
 }
+
+.container-style{
+    background-color: rgba(0,0,0, 0.5);
+    height:47%;
+    width:57%;
+    margin: auto;
+    border-radius: 7%;
+    border:solid 4px rgba(0,0,0, 0.8);
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    padding:5% 2%;
+    height:50px;
+    width:4.5vh;
+    grid-column: 1/span 2;
+    grid-row: 1;
+}
+
+.condition{
+    font-size: 2.8vh;
+    grid-column: 3/span 2;
+    grid-row: 1;
+    padding-top: 15%;
+    padding-right:10px;
+}
+
+.vertical-line{
+    background-color: white;
+    height: 70%;
+    width: 1%;
+    grid-column: 5/span 1;
+    grid-row: 1;
+    padding-top: 5%;
+
+    
+}
+
+.city{
+    font-size: 2.8vh;
+    grid-column: 6/span 2;
+    grid-row: 1;
+    padding-top:10%;
+}
+
+.country{
+    font-size: 100%;
+    grid-column: 9/span 2;
+    grid-row: 1;
+
+}
+
+.temperature{
+    grid-column: 1/span 6;
+    grid-row: 2;
+    font-size: 1100%;
+    padding-top:20%;
+    padding-left: 5%;
+
+}
+
+.temperature-unit{
+    grid-column: 7/span ;
+    grid-row: 2;
+    font-size: 750%;
+    padding-left: 5%;
+}
+
+

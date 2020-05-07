@@ -8,6 +8,7 @@ var url = "https://fcc-weather-api.glitch.me/api/current?";
 window.onload = function getUsersPosition(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(getLatitudeAndLongtitude);
+        
     }
     else{
         alert("Your browser doesn't support geolocation");
@@ -23,7 +24,7 @@ function getLatitudeAndLongtitude(position){
 }
 
 
-//new xmlhttprequest to request the JSON file depending on the user's location
+//new xmlhttprequest to request the JSON file depending on the user's location and display the weather
 function getData(){
     var req = new XMLHttpRequest();
     req.open("GET", api,true);
@@ -34,15 +35,15 @@ function getData(){
     var temperature = Math.floor(getText.main.temp);
     console.log(temperature);
     var city = getText.name;
-    console.log(getText.name);
     var country =getText.sys.country;
-    console.log(getText.sys.country);
     condition = getText.weather[0].main;
     condition = condition.toLowerCase();
-    console.log(condition);
     var weatherIcon = getText.weather[0].icon;
-    console.log(weatherIcon);
     setBackground(condition);
+    document.getElementById("location-condition").innerHTML = condition;
+    document.getElementById("location-city").innerHTML = city;
+    document.getElementById("location-country").innerHTML = country;
+    document.getElementById("condition").innerHTML = temperature;
     }
         
 }
@@ -71,5 +72,8 @@ function setBackground(weatherCondition){
     else {
         background.style.backgroundImage = "url(" + backgrounds.clouds + ")";   
     }
+    document.getElementById("california").style.backgroundImage = "url(https://images.fineartamerica.com/images-medium-large-5/golden-gate-bridge-vertical-view-tanya-harrison.jpg)";
+        document.getElementById("athens").style.backgroundImage = "url(https://images.fineartamerica.com/images-medium-large-5/3-athens-attica-greece-porch-panoramic-images.jpg)";
+    
 }
 

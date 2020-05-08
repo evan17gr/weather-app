@@ -8,7 +8,6 @@ var url = "https://fcc-weather-api.glitch.me/api/current?";
 window.onload = function getUsersPosition(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(getLatitudeAndLongtitude);
-        
     }
     else{
         alert("Your browser doesn't support geolocation");
@@ -21,6 +20,9 @@ function getLatitudeAndLongtitude(position){
     getLongtitude = position.coords.longitude;
     api = url + "lat=" +getLatitude + "&" + "lon=" + getLongtitude;
     getData();
+    getWeather(41.9028,12.4964,"italy-temperature","italy-city","italy-country","italy-icon","italy-condition");
+    getWeather(37.983810,23.727539,"athens-temperature","athens-city","athens-country","athens-icon","athens-condition");  
+    
 }
 
 
@@ -36,16 +38,19 @@ function getData(){
     console.log(temperature);
     var city = getText.name;
     var country =getText.sys.country;
-    condition = getText.weather[0].main;
+    var condition = getText.weather[0].main;
     condition = condition.toLowerCase();
-    var weatherIcon = getText.weather[0].icon;
     setBackground(condition);
     document.getElementById("location-condition").innerHTML = condition;
     document.getElementById("location-city").innerHTML = city;
     document.getElementById("location-country").innerHTML = country;
-    document.getElementById("condition").innerHTML = temperature;
+    document.getElementById("location-temperature").innerHTML = temperature;
+    document.getElementById("location-icon").src = getText.weather[0].icon;
+    changeUnit("italy-temperature","italy-unit"); 
+    changeUnit("location-temperature","location-unit");
+    changeUnit("athens-temperature","athens-unit");
     }
-        
+       
 }
 
 //all the background images
@@ -72,8 +77,62 @@ function setBackground(weatherCondition){
     else {
         background.style.backgroundImage = "url(" + backgrounds.clouds + ")";   
     }
-    document.getElementById("california").style.backgroundImage = "url(https://images.fineartamerica.com/images-medium-large-5/golden-gate-bridge-vertical-view-tanya-harrison.jpg)";
-        document.getElementById("athens").style.backgroundImage = "url(https://images.fineartamerica.com/images-medium-large-5/3-athens-attica-greece-porch-panoramic-images.jpg)";
+    document.getElementById("italy").style.backgroundImage = "url(https://wallpapershome.com/images/pages/pic_v/5073.jpg)";
+    document.getElementById("athens").style.backgroundImage = "url(https://images.fineartamerica.com/images-medium-large-5/3-athens-attica-greece-porch-panoramic-images.jpg)";
     
 }
 
+//get the weather for athens and italy
+function getWeather(lat,lon,tempElement,cityElement,countryElement,iconElement,conditionElement){
+    var req = new XMLHttpRequest();
+    req.open("GET",url+ "lat="+lat+ "&" + "lon=" +lon, true);
+    req.send();
+    req.onload = () => {
+        var getJSONData = JSON.parse(req.responseText);
+        console.log(getJSONData);
+        var temperature = Math.floor(getJSONData.main.temp);
+        var city = getJSONData.name;
+        var country =getJSONData.sys.country;
+        getJSONData.weather[0].icon;
+        var condition = getJSONData.weather[0].main;
+        document.getElementById(tempElement).innerHTML = temperature;
+        document.getElementById(cityElement).innerHTML = city;
+        document.getElementById(countryElement).innerHTML = country;
+        document.getElementById(iconElement).src = getJSONData.weather[0].icon;;
+        document.getElementById(conditionElement).innerHTML = condition;
+    }
+}
+
+//change the units of the temperature
+$(document).ready(function(){
+    $("#checkbox").toggle(
+      function(){
+        var temperature = document.getElementById("italy-temperature").textContent;
+        var fahrenheit = Math.round((temperature*9/5)+32);
+        document.getElementById("italy-temperature").innerHTML = fahrenheit;
+        document.getElementById("italy-unit").innerHTML = "F";
+        var temperature2 = document.getElementById("location-temperature").textContent;
+        var fahrenheit2 = Math.round((temperature2*9/5)+32);
+        document.getElementById("location-temperature").innerHTML = fahrenheit2;
+        document.getElementById("location-unit").innerHTML = "F";
+        var temperature3 = document.getElementById("athens-temperature").textContent;
+        var fahrenheit3 = Math.round((temperature3*9/5)+32);
+        document.getElementById("athens-temperature").innerHTML = fahrenheit3;
+        document.getElementById("athens-unit").innerHTML = "F";
+      },
+      function(){
+        var temperature = document.getElementById("italy-temperature").textContent;
+        var celsius = Math.round((temperature-32)*5/9); 
+        document.getElementById("italy-temperature").innerHTML = celsius;
+        document.getElementById("italy-unit").innerHTML = "C";
+        var temperature2 = document.getElementById("location-temperature").textContent;
+        var celsius2 = Math.round((temperature2-32)*5/9); 
+        document.getElementById("location-temperature").innerHTML = celsius2;
+        document.getElementById("location-unit").innerHTML = "C";
+        var temperature3 = document.getElementById("athens-temperature").textContent;
+        var celsius3 = Math.round((temperature3-32)*5/9); 
+        document.getElementById("athens-temperature").innerHTML = celsius3;
+        document.getElementById("athens-unit").innerHTML = "C";
+    });
+    
+});
